@@ -1,23 +1,30 @@
 import React from "react";
-import { StyleSheet, View, FlatList, Text } from "react-native";
-import { getStatusBarHeight } from "react-native-status-bar-height";
-
+import { FlatList, StyleSheet, View, TouchableOpacity, Text} from "react-native";
 import { ListPedal } from "./ListPedal";
-
-import List from "./src/componets/List";
+import Header from "./src/componets/Header";
+import List from "./src/componets/Card";
 
 export default function App() {
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title}>Grupos de Pedal</Text>
+
+			<Header style={styles.header} />
 
 			<FlatList
 				style={styles.flatlist}
 				keyboardShouldPersistTaps="handled"
+				showsHorizontalScrollIndicator={false}
 				data={ListPedal}
+				horizontal={true}
 				keyExtractor={(item) => String(item.id)}
 				renderItem={({ item }) => <List data={item} />}
 			/>
+
+			<View style={styles.containerBtn}>
+				<TouchableOpacity >
+					<Text  style={styles.btn}>Adicionar meu Pedal</Text>
+				</TouchableOpacity>
+			</View>
 		</View>
 	);
 }
@@ -25,22 +32,18 @@ export default function App() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		paddingTop: getStatusBarHeight(true) + 30,
-		backgroundColor: "#f1eaea",
+		backgroundColor: "#E8EAEB",
+		alignItems: 'center',
 	},
 
-	title: {
-		fontSize: 20,
-		fontWeight: "bold",
-		paddingLeft: 20,
-		textAlignVertical: "center",
-		height: 50,
-		borderBottomWidth: 1.5,
-		borderBottomColor: "#b5aeae",
-	},
-
-	flatlist: {
-		paddingHorizontal: 10,
-		marginTop: 5,
-	},
+    containerBtn: {
+		position:'absolute',
+        width: '50%',
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+		bottom: 20,
+		borderRadius: 50,
+		borderWidth: 1
+    },
 });
